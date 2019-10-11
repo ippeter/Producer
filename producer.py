@@ -1,6 +1,7 @@
 import os
 import re
 import socket
+import logging
 
 from kafka import KafkaProducer
 from json import dumps
@@ -17,6 +18,10 @@ class ReusableForm(Form):
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
+
+# Enable logging
+LOG = create_logger(app)
+LOG.setLevel(logging.INFO)
 
 @app.route("/", methods=['GET', 'POST'])
 def handle_input():
@@ -35,7 +40,6 @@ def handle_input():
     
     # Proceed to the form
     form = ReusableForm(request.form)
- 
     print(form.errors)
     
     if (request.method == 'POST'):
@@ -45,7 +49,7 @@ def handle_input():
             data = {'userId': strUserId, 'nodeName': strNodeName, 'podIP': strPodIP}
             future = producer.send(strTopicName, value=data)
             mt = future.get(timeout=10)
-            print(mt.topic, mt.partition, mt.offset)
+            LOG.info("User ID {} received and sent to topic {}, partition {} with offset {}".format(strUserId, mt.topic, mt.partition, mt.offset))
 
             flash('Thank you. Your id was sent to the database!')
         else:
