@@ -11,9 +11,10 @@
     {% for message in messages %}
       {% if loop.index == 1 %}
         <h1 align="center">Welcome!</h1>
-        <h3 align="center">Kubernetes Node Name is {{ message[1] }}</h3>
+	<p align="center" style="font-size: 1.5em;">Kubernetes Node Name is <b><font color="darkred">{{ message[1] }}</font></b></p>
+	<hr>
       {% elif loop.index == 2 %}
-        <h3 align="center">The pod IP address is {{ message[1] }}</h3>
+        <p align="center" style="font-size: 1.5em;">The pod IP address is <b><font color="seagreen">{{ message[1] }}</font></b></p>
       {% else %}
         <div>
           <h3 align="center"><i>{{ message[1] }}</i></h3>
@@ -21,6 +22,7 @@
       {% endif %}
     {% endfor %}
   {% endif %}
+	
 {% endwith %}
 
 	<div align="center">
