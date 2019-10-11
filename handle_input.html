@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>Microservices Demo</title>
+</head>
+
+<body>
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+  {% if messages %}
+    {% for message in messages %}
+      {% if loop.index == 1 %}
+        <h1 align="center">Welcome!</h1>
+        <h3 align="center">Kubernetes Node Name is {{ message[1] }}</h3>
+      {% elif loop.index == 2 %}
+        <h3 align="center">The pod IP address is {{ message[1] }}</h3>
+      {% else %}
+        <div>
+          <h3 align="center"><i>{{ message[1] }}</i></h3>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+	<div align="center">
+        <form action="" method="post">
+            {{ form.csrf }}
+ 
+            <div class="input text">
+                {{ form.user_id.label }} {{ form.user_id }}
+            </div>
+ 
+            <div class="input submit">
+                <input type="submit" value="Submit" />
+            </div>
+        </form>
+	</div>
+
+</body>
+</html>
