@@ -7,6 +7,7 @@ from kafka import KafkaProducer
 from json import dumps
 
 from flask import Flask, jsonify, request, render_template, flash
+from flask.logging import create_logger
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 
 
